@@ -1,9 +1,4 @@
-from django.urls import path
-from . import views
+from strava.api.helpers.paths import generate_path
+from strava.views import VIEWS
 
-urlpatterns = [
-    path("", views.index, name=""),
-    path("ping", views.ping, name="ping"),
-    path("webhook", views.webhook, name="webhook"),
-    path("users", views.users, name="users"),
-]
+urlpatterns = [generate_path(name, method) for name, method in VIEWS.items()]
