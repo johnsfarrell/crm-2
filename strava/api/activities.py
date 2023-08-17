@@ -38,4 +38,6 @@ def get_activity_strava(activity_id, token):
 
 
 def generate_activity_description(activity):
-    return "HELLO..."
+    old_description = activity["description"]
+    new_description = json.dumps(activity, indent=4, sort_keys=True)
+    return f"{old_description}\n-\n{new_description}"
