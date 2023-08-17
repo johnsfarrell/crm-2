@@ -36,7 +36,7 @@ def webhook(request) -> JsonResponse:
         print("test line 8")
         if not res.status_code in ["200", "201", 200, 201]:
             print("test line 9")
-            return JsonResponse({"error": f"{res}"}, status=res.status)
+            return JsonResponse({"error": f"{res}"}, status=res.status_code)
         print("test line 10")
         return JsonResponse({"success": f"{description}", "req": res}, status=200)
 
