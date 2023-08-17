@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from strava.api.helpers.request import request_handler
 from strava.api.helpers.request import restricted
 from strava.api.auth import verified_tokens
-from strava.api.helpers.request import request_handler, restricted, get_body
+from strava.api.helpers.request import request_handler, restricted
 from django.http import JsonResponse
 from strava.api.activities import (
     get_activity_strava,
@@ -19,8 +19,8 @@ def webhook(request) -> JsonResponse:
         return handle_webhook_subscribe(request, VERIFY_TOKEN)
 
     def create(request):
-        print("test line 1")
-        body = get_body(request)
+        print("test line 1", request)
+        body = request.body.decode("utf-8")
         print("test line 2")
         object_type, aspect_type = body["object_type"], body["aspect_type"]
         print("test line 3")
