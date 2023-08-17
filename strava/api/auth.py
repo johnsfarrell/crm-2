@@ -46,8 +46,7 @@ def verified_tokens(user_id):
 
 def get_tokens(user_id):
     res = _read("users", user_id)
-    access_token = res.get("access_token")
-    refresh_token = res.get("access_token")
+    access_token, refresh_token = res.get("access_token"), res.get("refresh_token")
     return access_token, refresh_token
 
 
@@ -56,8 +55,9 @@ def is_access_token_valid(user_id):
     if not access_token:
         return False
 
+    url = f"{STRAVA_URL}/athletes/{user_id}/stats"
     headers = {"Authorization": bearer(access_token)}
-    res = requests.get(f"{STRAVA_URL}/athletes/{user_id}/stats", headers)
+    res = requests.get(url, headers=headers)
 
     return res.status_code in [200, 201, "200", "201"]
 
@@ -75,5 +75,6 @@ def update_tokens(user_id):
     res = _update(
         "users", user_id, {"access_token": access_token, "refresh_token": refresh_token}
     )
+    print("is update done", res)
 
     return access_token, refresh_token

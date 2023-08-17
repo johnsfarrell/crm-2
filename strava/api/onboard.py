@@ -22,7 +22,7 @@ def onboard(request):
         )
 
     res_json = res.json()
-    user_data = _create(
+    res = _create(
         "users",
         {
             "id": res_json["athlete"]["id"],
@@ -37,7 +37,7 @@ def onboard(request):
         "onboard.html",
         {
             "status": f"success - {res_json['athlete']['username']}"
-            if user_data
+            if res
             else "error",
         },
     )
