@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 import requests
-from strava.src.constants import STRAVA_URL, CLIENT_ID, CLIENT_SECRET
+from strava.src.constants import STRAVA_URL, STRAVA_AUTH_URL, CLIENT_ID, CLIENT_SECRET
 from strava.api.helpers.crud import _read, _update
 from strava.api.helpers.utils import bearer
 
@@ -65,11 +65,11 @@ def is_access_token_valid(user_id):
 def update_tokens(user_id):
     _, refresh_token = get_tokens(user_id)
     res = requests.post(
-        f"{STRAVA_URL}/oath/token?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&refresh_token={refresh_token}&grant_type=refresh_token"
+        f"{STRAVA_AUTH_URL}?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&refresh_token={refresh_token}&grant_type=refresh_token"
     )
     if not res.status_code in [200, 201, "200", "201"]:
         print("rip", res)
-        return JsonResponse({"error": "Couldn't refresh tokens"}, status=400)
+        return "DEAD", refresh_token
 
     access_token, refresh_token = res.get("access_token"), res.get("refresh_token")
 
