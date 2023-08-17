@@ -23,7 +23,10 @@ def update_activity_description(activity_id, description, token):
 def get_activity_strava(activity_id, token):
     url = f"{STRAVA_URL}/activities/{activity_id}?include_all_efforts=true"
     headers = {"Authorization": bearer(token)}
-    res = requests.get(url, headers=headers).json()
+    res = requests.get(url, headers=headers)
+    if not res.status_code in [200, 201]:
+        return None
+    res = res.json()
     _create(
         "activities",
         {
