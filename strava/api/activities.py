@@ -38,4 +38,4 @@ def get_activity_strava(activity_id, token):
 
 
 def generate_activity_description(activity):
-    return "HELLO... " + json.dumps(activity, indent=4, sort_keys=True)
+    return "HELLO..."
