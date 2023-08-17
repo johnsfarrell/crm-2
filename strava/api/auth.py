@@ -63,12 +63,13 @@ def is_access_token_valid(user_id):
 
 
 def update_tokens(user_id):
-    res = _read("users", user_id)
-
-    refresh_token = res.get("refresh_token")
+    _, refresh_token = get_tokens(user_id)
     res = requests.post(
         f"{STRAVA_URL}/oath/token?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&refresh_token={refresh_token}&grant_type=refresh_token"
-    ).json()
+    )
+    if not res.status_code in [200, 201, "200", "201"]:
+        print("rip", res)
+        return JsonResponse({"error": "Couldn't refresh tokens"}, status=400)
 
     access_token, refresh_token = res.get("access_token"), res.get("refresh_token")
 
