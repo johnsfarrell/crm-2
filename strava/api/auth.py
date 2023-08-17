@@ -68,16 +68,13 @@ def update_tokens(user_id):
         f"{STRAVA_AUTH_URL}?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&refresh_token={refresh_token}&grant_type=refresh_token"
     )
     if not res.status_code in [200, 201, "200", "201"]:
-        print("rip", res)
-        return "DEAD", refresh_token
+        return None, refresh_token
 
     res = res.json()
-
     access_token, refresh_token = res.get("access_token"), res.get("refresh_token")
 
     res = _update(
         "users", user_id, {"access_token": access_token, "refresh_token": refresh_token}
     )
-    print("is update done", res)
 
-    return access_token, refresh_token
+    return access_token if res else None, refresh_token

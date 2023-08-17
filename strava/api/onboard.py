@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from strava.api.helpers.crud import _create
 from strava.src.constants import STRAVA_AUTH_URL, CLIENT_ID, CLIENT_SECRET
 
@@ -32,12 +32,11 @@ def onboard(request):
         },
     )
 
-    return render(
-        request,
-        "onboard.html",
-        {
-            "status": f"success - {res_json['athlete']['username']}"
-            if res
-            else "error",
-        },
-    )
+    if not res:
+        return render(
+            request,
+            "onboard.html",
+            {"status": "error - failed to save user"},
+        )
+
+    return redirect("https://jsfarrell.com/strava_success.html")
