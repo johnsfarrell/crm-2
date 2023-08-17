@@ -42,6 +42,6 @@ def generate_activity_description(activity):
     new_description = json.dumps(activity, indent=4, sort_keys=True)
     return (
         f"{old_description}\n-\n{new_description}"
-        if not old_description or len(old_description) > 0
+        if old_description and len(old_description) > 0
         else new_description
     )
