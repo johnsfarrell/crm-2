@@ -25,7 +25,7 @@ def get_activity_strava(activity_id, token):
     headers = {"Authorization": bearer(token)}
     res = requests.get(url, headers=headers)
     if not res.status_code in [200, 201]:
-        return None
+        return {"status": res.status_code, "message": res.text}
     res = res.json()
     _create(
         "activities",
