@@ -34,7 +34,7 @@ def webhook(request) -> JsonResponse:
         print("test line 7")
         res, description = handle_activity_webhook(user_id, activity_id)
         print("test line 8")
-        if not res.status in ["200", "201", 200, 201]:
+        if not res.status_code in ["200", "201", 200, 201]:
             print("test line 9")
             return JsonResponse({"error": f"{res}"}, status=res.status)
         print("test line 10")
