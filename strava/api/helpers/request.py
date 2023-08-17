@@ -17,5 +17,5 @@ def request_handler(create, read, update, delete):
     return lambda request: CRUD[request.method](request)
 
 
-def get_body():
-    return lambda request: json.loads(request.body.decode("utf-8"))
+def get_body(request):
+    return json.loads(request.body.decode("utf-8"))
