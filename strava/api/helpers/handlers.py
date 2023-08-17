@@ -1,18 +1,23 @@
 from django.http import JsonResponse
 from strava.api.helpers.crud import _create, _read, _update, _delete
+from strava.api.helpers.request import get_body
 
 
 def generate_handlers(table, required_fields, optional_fields):
-    def create(body):
+    def create(request):
+        body = get_body(request)
         return create_handler(body, table, required_fields, optional_fields)
 
-    def read(body):
+    def read(request):
+        body = get_body(request)
         return read_handler(body, table)
 
-    def update(body):
+    def update(request):
+        body = get_body(request)
         return update_handler(body, table, required_fields, optional_fields)
 
-    def delete(body):
+    def delete(request):
+        body = get_body(request)
         return delete_handler(body, table)
 
     return (create, read, update, delete)
