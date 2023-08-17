@@ -28,7 +28,7 @@ def webhook(request) -> JsonResponse:
         res, description = handle_activity_webhook(user_id, activity_id)
         if not res.status_code in ["200", "201", 200, 201]:
             return JsonResponse({"error": f"{res}"}, status=res.status_code)
-        return JsonResponse({"success": f"{description}", "req": res}, status=200)
+        return JsonResponse({"success": f"{description}"}, status=200)
 
     return request_handler(create, read, restricted, restricted)(request)
 
