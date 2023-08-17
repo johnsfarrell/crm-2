@@ -71,6 +71,8 @@ def update_tokens(user_id):
         print("rip", res)
         return "DEAD", refresh_token
 
+    res = res.json()
+
     access_token, refresh_token = res.get("access_token"), res.get("refresh_token")
 
     res = _update(
