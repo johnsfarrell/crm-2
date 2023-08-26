@@ -51,33 +51,5 @@ def calculate_heat_index(temp, humidity):
     return round(heat_index, 2)
 
 
-def adjust_pace(speed, temperature, humidity, wind_speed):
-    """
-    Adjust running pace based on weather factors.
-
-    pace_minutes: Actual pace in minutes per mile/km
-    pace_seconds: Actual pace in seconds per mile/km (remainder after minutes)
-    temperature: Current temperature in °F (could adjust for °C if needed)
-    humidity: Current relative humidity (0-100%)
-    wind_speed: Current wind speed in mph (could adjust for km/h if needed)
-
-    Returns: Adjusted pace as (minutes, seconds)
-    """
-    # Adjust pace for temperature
-    # Assuming anything above 75°F begins to slow the runner down and anything below 40°F also slows the runner.
-    if temperature > 75:
-        speed += (temperature - 75) * 0.2
-    elif temperature < 40:
-        speed += (40 - temperature) * 0.1
-
-    # Adjust pace for humidity
-    # Assuming high humidity above 70% slows the runner.
-    if humidity > 70:
-        speed += (humidity - 70) * 0.1
-
-    # Adjust pace for wind
-    # Assuming strong winds above 10 mph slows the runner.
-    if wind_speed > 10:
-        speed += (wind_speed - 10) * 0.5
-
-    return speed
+def adjust_speed(speed, temperature, humidity, wind_speed):
+    return speed * 1.2

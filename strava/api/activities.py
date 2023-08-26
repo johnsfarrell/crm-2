@@ -8,7 +8,7 @@ from strava.api.helpers.crud import _create
 from strava.api.weather import (
     get_weather,
     calculate_heat_index,
-    adjust_pace,
+    adjust_speed,
 )
 
 
@@ -67,9 +67,10 @@ def generate_description(activity):
         dew_point,
     ) = get_weather(start_date, lat, lng)
     heat_index = calculate_heat_index(temperature, humidity)
-    real_pace = adjust_pace(average_speed, temperature, humidity, wind_speed)
+    real_pace = adjust_speed(average_speed, temperature, humidity, wind_speed)
+    pace_original = km_per_min_to_mile_per_min(average_speed)
     pace_final = km_per_min_to_mile_per_min(real_pace)
-    return f"PACE: {pace_final}\naverage speed: {average_speed}\nstart date: {start_date}\nstart latlng: {start_latlng}\ntotal elevation gain: {total_elevation_gain}\nelev high: {elev_high}\ntemperature: {temperature}\nprecipitation: {precipitation}\nwind speed: {wind_speed}\nhumidity: {humidity}\ndew point: {dew_point}\nheat index: {heat_index}\nreal_pace: {real_pace}"
+    return f"ADJUSTED PACE: {pace_final}\nORIGINAL PACE: {pace_original}\naverage speed: {average_speed}\nstart date: {start_date}\nstart latlng: {start_latlng}\ntotal elevation gain: {total_elevation_gain}\nelev high: {elev_high}\ntemperature: {temperature}\nprecipitation: {precipitation}\nwind speed: {wind_speed}\nhumidity: {humidity}\ndew point: {dew_point}\nheat index: {heat_index}\nreal_pace: {real_pace}"
 
 
 def km_per_min_to_mile_per_min(pace_km):
