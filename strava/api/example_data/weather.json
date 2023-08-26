@@ -1,0 +1,174 @@
+{
+  "columns": {
+    "wdir": { "id": "wdir", "name": "Wind Direction", "type": 2, "unit": null },
+    "latitude": {
+      "id": "latitude",
+      "name": "Latitude",
+      "type": 2,
+      "unit": null
+    },
+    "cloudcover": {
+      "id": "cloudcover",
+      "name": "Cloud Cover",
+      "type": 2,
+      "unit": "%"
+    },
+    "mint": {
+      "id": "mint",
+      "name": "Minimum Temperature",
+      "type": 2,
+      "unit": "degF"
+    },
+    "datetime": {
+      "id": "datetime",
+      "name": "Date time",
+      "type": 3,
+      "unit": null
+    },
+    "precip": {
+      "id": "precip",
+      "name": "Precipitation",
+      "type": 2,
+      "unit": "in"
+    },
+    "solarradiation": {
+      "id": "solarradiation",
+      "name": "Solar Radiation",
+      "type": 2,
+      "unit": "W/m^2"
+    },
+    "dew": { "id": "dew", "name": "Dew Point", "type": 2, "unit": "degF" },
+    "humidity": {
+      "id": "humidity",
+      "name": "Relative Humidity",
+      "type": 2,
+      "unit": "%"
+    },
+    "precipcover": {
+      "id": "precipcover",
+      "name": "Precipitation Cover",
+      "type": 2,
+      "unit": "%"
+    },
+    "longitude": {
+      "id": "longitude",
+      "name": "Longitude",
+      "type": 2,
+      "unit": null
+    },
+    "info": { "id": "info", "name": "Info", "type": 1, "unit": null },
+    "temp": { "id": "temp", "name": "Temperature", "type": 2, "unit": "degF" },
+    "address": { "id": "address", "name": "Address", "type": 1, "unit": null },
+    "maxt": {
+      "id": "maxt",
+      "name": "Maximum Temperature",
+      "type": 2,
+      "unit": "degF"
+    },
+    "visibility": {
+      "id": "visibility",
+      "name": "Visibility",
+      "type": 2,
+      "unit": "mi"
+    },
+    "wspd": { "id": "wspd", "name": "Wind Speed", "type": 2, "unit": "mph" },
+    "solarenergy": {
+      "id": "solarenergy",
+      "name": "Solar Energy",
+      "type": 2,
+      "unit": "J/m^2"
+    },
+    "resolvedAddress": {
+      "id": "resolvedAddress",
+      "name": "Resolved Address",
+      "type": 1,
+      "unit": null
+    },
+    "heatindex": {
+      "id": "heatindex",
+      "name": "Heat Index",
+      "type": 2,
+      "unit": "degF"
+    },
+    "weathertype": {
+      "id": "weathertype",
+      "name": "Weather Type",
+      "type": 1,
+      "unit": null
+    },
+    "snowdepth": {
+      "id": "snowdepth",
+      "name": "Snow Depth",
+      "type": 2,
+      "unit": "in"
+    },
+    "sealevelpressure": {
+      "id": "sealevelpressure",
+      "name": "Sea Level Pressure",
+      "type": 2,
+      "unit": "mb"
+    },
+    "snow": { "id": "snow", "name": "Snow", "type": 2, "unit": "in" },
+    "name": { "id": "name", "name": "Name", "type": 1, "unit": null },
+    "wgust": { "id": "wgust", "name": "Wind Gust", "type": 2, "unit": "mph" },
+    "conditions": {
+      "id": "conditions",
+      "name": "Conditions",
+      "type": 1,
+      "unit": null
+    },
+    "windchill": {
+      "id": "windchill",
+      "name": "Wind Chill",
+      "type": 2,
+      "unit": "degF"
+    }
+  },
+  "remainingCost": 0,
+  "queryCost": 1,
+  "messages": null,
+  "locations": {
+    "41.8262,-71.4032": {
+      "stationContributions": null,
+      "values": [
+        {
+          "wdir": 25.0,
+          "temp": 31.3,
+          "maxt": 31.3,
+          "visibility": 2.7,
+          "wspd": 10.3,
+          "datetimeStr": "2019-12-17T13:00:00-05:00",
+          "solarenergy": null,
+          "heatindex": null,
+          "cloudcover": 96.2,
+          "mint": 31.3,
+          "datetime": 1576587600000,
+          "precip": 0.08,
+          "solarradiation": null,
+          "weathertype": "Mist, Light Snow, Light Rain, Light Freezing Rain",
+          "snowdepth": 0.0,
+          "sealevelpressure": 1006.0,
+          "snow": 0.0,
+          "dew": 30.1,
+          "humidity": 95.28,
+          "precipcover": null,
+          "wgust": null,
+          "conditions": "Rain, Overcast",
+          "windchill": 22.7,
+          "info": null
+        }
+      ],
+      "id": "41.8262,-71.4032",
+      "address": "41.8262,-71.4032",
+      "name": "41.8262,-71.4032",
+      "index": 0,
+      "latitude": 41.8262,
+      "longitude": -71.4032,
+      "distance": 0.0,
+      "time": 0.0,
+      "tz": "America/New_York",
+      "currentConditions": null,
+      "alerts": null
+    }
+  }
+}
