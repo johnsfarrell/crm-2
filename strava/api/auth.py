@@ -1,8 +1,9 @@
 from django.http import JsonResponse
 import requests
-from strava.src.constants import STRAVA_URL, STRAVA_AUTH_URL, CLIENT_ID, CLIENT_SECRET
+from strava.src.constants import STRAVA_URL, STRAVA_AUTH_URL
 from strava.api.helpers.crud import _read, _update
 from strava.api.helpers.utils import bearer
+import os
 
 
 def authorization_code(request):
@@ -13,7 +14,7 @@ def authorization_code(request):
         return JsonResponse({"error": "Bad request, invalid params"}, status=400)
 
     res = requests.post(
-        f"{STRAVA_URL}/oath/token?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&code={code}&grant_type={grant_type}"
+        f"{STRAVA_URL}/oath/token?client_id={os.environ.get('CLIENT_ID')}&client_secret={os.environ.get('CLIENT_SECRET')}&code={code}&grant_type={grant_type}"
     )
     res = res.json()
 
@@ -65,7 +66,7 @@ def is_access_token_valid(user_id):
 def update_tokens(user_id):
     _, refresh_token = get_tokens(user_id)
     res = requests.post(
-        f"{STRAVA_AUTH_URL}?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&refresh_token={refresh_token}&grant_type=refresh_token"
+        f"{STRAVA_AUTH_URL}?client_id={os.environ.get('CLIENT_ID')}&client_secret={os.environ.get('CLIENT_SECRET')}&refresh_token={refresh_token}&grant_type=refresh_token"
     )
     if not res.status_code in [200, 201, "200", "201"]:
         return None, refresh_token

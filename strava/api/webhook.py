@@ -10,13 +10,13 @@ from strava.api.activities import (
     update_activity_description,
     generate_activity_description,
 )
-from strava.src.constants import VERIFY_TOKEN
+import os
 
 
 @csrf_exempt
 def webhook(request) -> JsonResponse:
     def read(request):
-        return handle_webhook_subscribe(request, VERIFY_TOKEN)
+        return handle_webhook_subscribe(request, os.environ.get("VERIFY_TOKEN"))
 
     def create(request):
         body = get_body(request)

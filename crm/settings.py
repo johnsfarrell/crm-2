@@ -1,6 +1,7 @@
 from pathlib import Path
 import django_heroku
 import pyrebase
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -70,7 +71,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Firebase
 config = {
-    "apiKey": "AIzaSyDw-AwAd3BKC7OCcPAQvl3wGfd1L5bb5HQ",
+    "apiKey": os.environ.get("FIREBASE_KEY"),
     "authDomain": "jahn-strava.firebaseapp.com",
     "projectId": "jahn-strava",
     "storageBucket": "jahn-strava.appspot.com",

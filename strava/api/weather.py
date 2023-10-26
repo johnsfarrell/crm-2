@@ -1,13 +1,13 @@
 import json
 import requests
-from strava.src.constants import VISUAL_CROSSING_API_KEY
+import os
 
 WEATHER_URL = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata"
 
 
 def get_weather(time, lat, lng):
     location = f"{lat},{lng}"
-    url = f"{WEATHER_URL}/history?aggregateHours=1&startDateTime={time}&endDateTime={time}&location={location}&unitGroup=us&key={VISUAL_CROSSING_API_KEY}&contentType=json"
+    url = f"{WEATHER_URL}/history?aggregateHours=1&startDateTime={time}&endDateTime={time}&location={location}&unitGroup=us&key={os.environ.get('VISUAL_CROSSING_API_KEY')}&contentType=json"
     res = requests.get(url)
     if not res.status_code in [200, 201]:
         return None
