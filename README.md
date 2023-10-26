@@ -1,4 +1,6 @@
-# Strava API
+# Strava Extension
+
+Weather adjusted pace
 
 Nice
 
