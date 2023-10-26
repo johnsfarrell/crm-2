@@ -73,24 +73,31 @@ def generate_description(activity):
     #
     heat_index = calculate_heat_index(temperature, humidity)
     adjusted_speed = adjust_speed(
-        average_speed, temperature, humidity, dew_point, wind_speed, heat_index, total_elevation_gain, elev_high
+        average_speed,
+        temperature,
+        humidity,
+        dew_point,
+        wind_speed,
+        heat_index,
+        total_elevation_gain,
+        elev_high,
     )
     original_pace = mps_to_min_per_mile(average_speed)
     adjusted_pace = mps_to_min_per_mile(adjusted_speed)
 
-    return f"{adjusted_pace} ☁️\n\n\n\
+    return f"""{adjusted_pace} ☁️\n\n\n
     
-            DEBUG:\n\
-            Temperature:               {temperature} ℉\n\
-            Precipitation:             {precipitation} in\n\
-            Wind Speed:                {wind_speed} mph\n\
-            Humidity:                  {humidity} %\n\
-            Dew Point:                 {dew_point} ℉\n\
-            Heat Index:                {heat_index}\n\
-            Elevation Gain:            {total_elevation_gain} m\n\
-            Elevation High:            {elev_high} m\n\
-            Original Pace:             {original_pace}\n\
-            "
+            DEBUG:\n
+            Temperature:               {temperature} ℉\n
+            Precipitation:             {precipitation} in\n
+            Wind Speed:                {wind_speed} mph\n
+            Humidity:                  {humidity} %\n
+            Dew Point:                 {dew_point} ℉\n
+            Heat Index:                {heat_index}\n
+            Elevation Gain:            {total_elevation_gain} m\n
+            Elevation High:            {elev_high} m\n
+            Original Pace:             {original_pace}\n
+            """
 
 
 def mps_to_min_per_mile(speed_mps):
