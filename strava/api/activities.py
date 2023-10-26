@@ -86,7 +86,7 @@ def generate_description(activity):
     original_pace = mps_to_min_per_mile(average_speed)
     adjusted_pace = mps_to_min_per_mile(adjusted_speed)
 
-    return f"""{adjusted_pace} {"🌧️" if precipitation > 0 else "☁️"}
+    return f"""{adjusted_pace} {"🌧️" if precipitation > 0 else "☁️"} adjusted!
 
 
     
@@ -109,5 +109,5 @@ def mps_to_min_per_mile(speed_mps):
     minutes = int(total_seconds_per_mile // 60)
     seconds = int(total_seconds_per_mile % 60)
 
-    # Format and return the result as MM:SS
-    return f"{minutes:02d}:{seconds:02d}"
+    # Format and return the result as M:SS
+    return f"{minutes}:{seconds:02d}"
