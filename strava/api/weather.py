@@ -60,45 +60,52 @@ def adjust_speed(
     heat_index,
     elevation_gain,
     elevation_high,
+    precipitation,
 ):
     # Adjust for temperature
     if temperature > 75:
-        speed *= 0.97
+        speed *= 1.03
     elif temperature < 40:
-        speed *= 0.98
+        speed *= 1.02
 
     # Adjust for humidity
     if humidity > 85:
-        speed *= 0.95
+        speed *= 1.05
     elif humidity > 70:
-        speed *= 0.98
+        speed *= 1.02
 
     # Adjust for dew point
     if dew_point > 70:
-        speed *= 0.93
+        speed *= 1.07
     elif dew_point > 65:
-        speed *= 0.96
+        speed *= 1.04
 
     # Adjust for wind speed
     if wind_speed > 10:  # If wind is strong and against runner
-        speed *= 0.97
-    elif wind_speed < -10:  # If wind is strong and aiding runner
         speed *= 1.03
+    elif wind_speed < -10:  # If wind is strong and aiding runner
+        speed *= 0.97
 
     # Adjust for heat index
     if heat_index > 90:
-        speed *= 0.94
+        speed *= 1.06
 
     # Adjust for elevation gain
     if elevation_gain > 150:  # Roughly 500 feet
-        speed *= 0.95
+        speed *= 1.05
     elif elevation_gain > 300:  # Roughly 1000 feet
-        speed *= 0.90
+        speed *= 1.10
 
     # Adjust for high elevation
     if elevation_high > 1500:  # Where noticeable effects start to kick in
-        speed *= 0.96
+        speed *= 1.04
     elif elevation_high > 3000:  # More pronounced effects
-        speed *= 0.92
+        speed *= 1.08
+
+    # Adjust for precipitation
+    if precipitation > 0.2:  # Heavy precipitation
+        speed *= 1.05
+    elif precipitation > 0.1:  # Light precipitation
+        speed *= 1.02
 
     return speed

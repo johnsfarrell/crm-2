@@ -1,3 +1,4 @@
 .env
 venv
 strava/api/test.py
+strava/api/Afternoon_Run.gpx
