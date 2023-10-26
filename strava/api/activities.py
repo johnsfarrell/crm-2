@@ -53,12 +53,15 @@ def generate_activity_description(activity):
 
 
 def generate_description(activity):
-    average_speed = activity["average_speed"]
+    # extract data from activity
+    average_speed = activity["average_speed"]  # meters per second
     start_date = activity["start_date"]
     start_latlng = activity["start_latlng"]
     lat, lng = start_latlng[0], start_latlng[1]
     total_elevation_gain = activity["total_elevation_gain"]
     elev_high = activity["elev_high"]
+
+    # get weather data
     (
         temperature,
         precipitation,
@@ -66,18 +69,35 @@ def generate_description(activity):
         humidity,
         dew_point,
     ) = get_weather(start_date, lat, lng)
+
+    #
     heat_index = calculate_heat_index(temperature, humidity)
-    real_pace = adjust_speed(average_speed, temperature, humidity, wind_speed)
-    pace_original = km_per_min_to_mile_per_min(average_speed)
-    pace_final = km_per_min_to_mile_per_min(real_pace)
-    return f"ADJUSTED PACE: {pace_final}\nORIGINAL PACE: {pace_original}\naverage speed: {average_speed}\nstart date: {start_date}\nstart latlng: {start_latlng}\ntotal elevation gain: {total_elevation_gain}\nelev high: {elev_high}\ntemperature: {temperature}\nprecipitation: {precipitation}\nwind speed: {wind_speed}\nhumidity: {humidity}\ndew point: {dew_point}\nheat index: {heat_index}\nreal_pace: {real_pace}"
+    adjusted_speed = adjust_speed(
+        average_speed, temperature, humidity, dew_point, wind_speed, heat_index, total_elevation_gain, elev_high
+    )
+    original_pace = mps_to_min_per_mile(average_speed)
+    adjusted_pace = mps_to_min_per_mile(adjusted_speed)
+
+    return f"{adjusted_pace} ☁️\n\n\n\
+    
+            DEBUG:\n\
+            Temperature:               {temperature} ℉\n\
+            Precipitation:             {precipitation} in\n\
+            Wind Speed:                {wind_speed} mph\n\
+            Humidity:                  {humidity} %\n\
+            Dew Point:                 {dew_point} ℉\n\
+            Heat Index:                {heat_index}\n\
+            Elevation Gain:            {total_elevation_gain} m\n\
+            Elevation High:            {elev_high} m\n\
+            Original Pace:             {original_pace}\n\
+            "
 
 
-def km_per_min_to_mile_per_min(pace_km):
-    conversion_factor = 1.60934
-    pace_mile = pace_km * conversion_factor
+def mps_to_min_per_mile(speed_mps):
+    # Convert m/s to min/mile
+    total_seconds_per_mile = 1609.34 / speed_mps
+    minutes = int(total_seconds_per_mile // 60)
+    seconds = int(total_seconds_per_mile % 60)
 
-    minutes = int(pace_mile)
-    seconds = int((pace_mile - minutes) * 60)
-
-    return f"{minutes}:{seconds:02}"
+    # Format and return the result as MM:SS
+    return f"{minutes:02d}:{seconds:02d}"

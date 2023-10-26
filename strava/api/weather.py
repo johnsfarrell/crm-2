@@ -1,8 +1,8 @@
 import json
 import requests
+from strava.src.constants import VISUAL_CROSSING_API_KEY
 
 WEATHER_URL = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata"
-VISUAL_CROSSING_API_KEY = "EVWNLXNJHRAQ4FUYNM663JMVP"
 
 
 def get_weather(time, lat, lng):
@@ -51,5 +51,54 @@ def calculate_heat_index(temp, humidity):
     return round(heat_index, 2)
 
 
-def adjust_speed(speed, temperature, humidity, wind_speed):
-    return speed * 1.2
+def adjust_speed(
+    speed,
+    temperature,
+    humidity,
+    dew_point,
+    wind_speed,
+    heat_index,
+    elevation_gain,
+    elevation_high,
+):
+    # Adjust for temperature
+    if temperature > 75:
+        speed *= 0.97
+    elif temperature < 40:
+        speed *= 0.98
+
+    # Adjust for humidity
+    if humidity > 85:
+        speed *= 0.95
+    elif humidity > 70:
+        speed *= 0.98
+
+    # Adjust for dew point
+    if dew_point > 70:
+        speed *= 0.93
+    elif dew_point > 65:
+        speed *= 0.96
+
+    # Adjust for wind speed
+    if wind_speed > 10:  # If wind is strong and against runner
+        speed *= 0.97
+    elif wind_speed < -10:  # If wind is strong and aiding runner
+        speed *= 1.03
+
+    # Adjust for heat index
+    if heat_index > 90:
+        speed *= 0.94
+
+    # Adjust for elevation gain
+    if elevation_gain > 150:  # Roughly 500 feet
+        speed *= 0.95
+    elif elevation_gain > 300:  # Roughly 1000 feet
+        speed *= 0.90
+
+    # Adjust for high elevation
+    if elevation_high > 1500:  # Where noticeable effects start to kick in
+        speed *= 0.96
+    elif elevation_high > 3000:  # More pronounced effects
+        speed *= 0.92
+
+    return speed
