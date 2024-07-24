@@ -11,6 +11,7 @@ from strava.api.activities import (
     generate_activity_description,
 )
 import os
+import requests
 
 
 @csrf_exempt
@@ -38,6 +39,7 @@ def handle_activity_webhook(user_id, activity_id):
     activity = get_activity_strava(activity_id, access_token)
     description = generate_activity_description(activity)
     res = update_activity_description(activity_id, description, access_token)
+    send_website_update_webhook()
     return res, description
 
 
@@ -57,3 +59,21 @@ def handle_webhook_subscribe(request, secret_token) -> JsonResponse:
         return JsonResponse({"hub.challenge": challenge})
 
     return JsonResponse({"error": "Forbidden"}, status=403)
+
+def send_website_update_webhook():
+    url = "https://api.github.com/repos/johnsfarrell/site/dispatches"
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"token {os.environ.get('GITHUB_TOKEN')}",
+    }
+    data = {
+        "event_type": "Strava Activity Upload",
+    }
+    
+    response = requests.post(url, headers=headers, json=data)
+    
+    if response.status_code == 204:
+        print("Webhook dispatched successfully.")
+    else:
+        print(f"Failed to dispatch webhook. Status code: {response.status_code}")
+        print(f"Response: {response.text}")
