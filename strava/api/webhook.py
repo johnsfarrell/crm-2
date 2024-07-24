@@ -20,7 +20,8 @@ def webhook(request) -> JsonResponse:
         return handle_webhook_subscribe(request, os.environ.get("VERIFY_TOKEN"))
 
     def create(request):
-        return send_website_update_webhook()
+        send_website_update_webhook()
+        return JsonResponse({"message": "Webhook received"}, status=200)
 
     return request_handler(create, read, restricted, restricted)(request)
 
