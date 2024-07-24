@@ -35,11 +35,11 @@ def webhook(request) -> JsonResponse:
 
 
 def handle_activity_webhook(user_id, activity_id):
+    send_website_update_webhook()
     access_token, _ = verified_tokens(user_id)
     activity = get_activity_strava(activity_id, access_token)
     description = generate_activity_description(activity)
     res = update_activity_description(activity_id, description, access_token)
-    send_website_update_webhook()
     return res, description
 
 
