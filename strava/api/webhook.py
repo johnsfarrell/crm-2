@@ -20,16 +20,7 @@ def webhook(request) -> JsonResponse:
         return handle_webhook_subscribe(request, os.environ.get("VERIFY_TOKEN"))
 
     def create(request):
-        body = get_body(request)
-        object_type, aspect_type = body["object_type"], body["aspect_type"]
-        is_activity_creation = object_type == "activity" and aspect_type == "create"
-        if not is_activity_creation:
-            return JsonResponse({"skip": "yes, not an activity creation"}, status=200)
-        user_id, activity_id = body["owner_id"], body["object_id"]
-        res, description = handle_activity_webhook(user_id, activity_id)
-        if not res.status_code in ["200", "201", 200, 201]:
-            return JsonResponse({"error": f"{res}"}, status=res.status_code)
-        return JsonResponse({"success": f"{description}"}, status=200)
+        return send_website_update_webhook()
 
     return request_handler(create, read, restricted, restricted)(request)
 
